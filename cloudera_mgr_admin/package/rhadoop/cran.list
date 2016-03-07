@@ -1,0 +1,3 @@
+## R BACKPORTS FOR WHEEZY
+deb http://cran.revolutionanalytics.com/bin/linux/debian wheezy-cran3/
+deb-src http://cran.revolutionanalytics.com/bin/linux/debian wheezy-cran3/

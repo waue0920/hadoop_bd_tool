@@ -1,0 +1,16 @@
+#!/bin/bash
+# waue (wei-yu chen) @ 20150316
+
+fromfile=$1
+tofile=$2
+if [ "$2" == "" ];then
+        echo './hascp "localfile" "destdir"'
+        exit
+fi
+
+for i in $(cat ./hosts | grep -v "^#" | awk {'print $1'});do
+        echo "=== $i ==="
+        scp -r $fromfile $i:$tofile
+
+done
+
