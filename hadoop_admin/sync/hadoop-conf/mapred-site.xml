@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+  <property>
+    <name>mapreduce.framework.name</name>
+    <value>yarn</value>
+  </property>
+
+  <property>
+    <name>mapreduce.map.memory.mb</name>
+    <value>4096</value>
+  </property>
+  <property>
+    <name>mapreduce.reduce.memory.mb</name>
+    <value>8192</value>
+  </property>
+  <property>
+    <name>mapreduce.map.java.opts</name>
+    <value>-Xmx3276m</value>
+  </property>
+  <property>
+    <name>mapreduce.reduce.java.opts</name>
+    <value>-Xmx6553m</value>
+  </property>
+
+  <!--History server-->
+  <property>
+    <name>mapreduce.jobhistory.address</name>
+    <value>hd17:10020</value>
+  </property>
+  <property>
+    <name>mapreduce.jobhistory.webapp.address</name>
+    <value>hd17:19888</value>
+  </property>
+    
+ <!-- Kerberos
+  <property>  
+    <name>mapreduce.jobhistory.keytab</name>  
+    <value>/opt/hadoop/etc/hadoop/hdadm.keytab</value>  
+  </property>  
+  <property>  
+    <name>mapreduce.jobhistory.principal</name>  
+    <value>hdadm/_HOST@NCHC.HC</value>  
+  </property>  
+    
+-->
+</configuration>

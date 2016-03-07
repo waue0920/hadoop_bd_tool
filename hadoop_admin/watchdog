@@ -1,0 +1,24 @@
+#!/bin/bash
+# waue (wei-yu chen) @ 20150518 v2
+# using the pdsh to speedup the query process @ 20150519 v3
+# revise to namenode ha @ 20150519 v3
+
+
+bin=`dirname "$0"`
+bin=`cd "$bin"; pwd`
+cd $bin;
+
+./pjps > ./var/status/cluster_pjps
+
+datetime=$(date +%Y%m%d_%H%M%S)
+
+error=$(grep XX ./var/status/cluster_pjps | wc -l )
+
+if [ $error -gt 1 ];then 
+	echo "ERROR"
+	mail -s '[HCBD ERROR] service crashed, please check' hdadm@nchc.narl.org.tw <./var/status/cluster_pjps
+	cp ./var/status/cluster_pjps ./var/status/error_archi/cluster_pjps_error.$datetime
+else
+	echo "safe!"
+fi
+

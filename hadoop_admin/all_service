@@ -1,0 +1,87 @@
+#!/bin/bash
+# waue (wei-yu chen) @ 20150316
+
+
+
+action=$1
+
+start_all(){
+ ./service ZK start; 
+sleep 3;
+ ./service JN start; 
+sleep 3;
+ ./service NN start; 
+ ./service FC start;
+sleep 3;
+ ./service DN start;
+sleep 3;
+ ./service HS start;
+ ./service RM start;
+sleep 3;
+ ./service NM start;
+ ./service HM start; 
+sleep 3;
+ ./service RS start; 
+ ./service HMS start;
+ ./service HS2 start;
+ ./service IMS start;
+ ./service ICL start;
+ ./service ISD start
+}
+
+## stop 
+stop_all(){
+
+ ./service IMS stop;
+ ./service ICL stop;
+ ./service ISD stop;
+
+ ./service HMS stop;
+ ./service HS2 stop;
+
+ /opt/hbase/bin/hbase    --config /opt/hbase/conf    master stop
+sleep 3;
+ ./service HM stop;
+sleep 3;
+ ./service RS stop;
+sleep 3;
+
+ ./service HS stop;
+ ./service RM stop;
+sleep 3;
+ ./service NM stop;
+
+
+ ./service FC stop;
+sleep 3;
+ ./service NN stop;
+sleep 3;
+ ./service DN stop;
+sleep 3;
+
+ ./service JN stop;
+ ./service ZK stop;
+## stop 
+}
+
+usage(){
+  echo "Usage: $0 <start|stop>"
+  exit 0
+}
+
+if [ "$action" == "stop" ];then
+ stop_all
+
+elif [ "$action" == "start" ];then
+ start_all
+
+
+else
+ usage
+
+fi
+
+
+
+
+

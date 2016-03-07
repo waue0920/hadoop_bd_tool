@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<configuration>
+    <property>
+        <name>yarn.nodemanager.local-dirs</name>
+        <value>/data1/cdh5yarn/local,/data2/cdh5yarn/local,/data3/cdh5yarn/local,/data4/cdh5yarn/local</value>
+    </property>
+
+    <property>
+        <name>yarn.nodemanager.log-dirs</name>
+        <value>/data1/cdh5yarn/logs,/data2/cdh5yarn/logs,/data3/cdh5yarn/logs,/data4/cdh5yarn/logs</value>
+    </property>
+
+  <property>
+    <name>yarn.nodemanager.remote-app-log-dir</name>
+    <value>hdfs://HDFSHC/var/log/hadoop-yarn/apps</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.aux-services</name>
+    <value>mapreduce_shuffle</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+    <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.address</name>
+    <value>hd17:8032</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.scheduler.address</name>
+    <value>hd17:8030</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.resource-tracker.address</name>
+    <value>hd17:8031</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.admin.address</name>
+    <value>hd17:8033</value>
+  </property>
+
+  <!--RM UI use public IP for outside-->
+  <property>
+    <name>yarn.resourcemanager.webapp.address</name>
+    <value>hd17:8088</value>
+  </property>
+  
+  <!--proxy use private IP , for query App Master-->
+  <property>
+    <name>yarn.web-proxy.address</name>
+    <value>hd17:8089</value>
+  </property>
+
+  <property>
+    <name>yarn.nodemanager.delete.debug-delay-sec</name>
+    <value>600</value>
+  </property>
+
+<!-- Memory usage configure -->
+  <property>
+    <name>yarn.nodemanager.resource.memory-mb</name>
+    <value>32768</value>
+  </property>
+  <property>
+    <name>yarn.scheduler.minimum-allocation-mb</name>
+    <value>4096</value>
+  </property>
+  <property>
+    <name>yarn.scheduler.maximum-allocation-mb</name>
+    <value>32768</value>
+  </property>
+  <property>
+    <name>yarn.app.mapreduce.am.resource.mb</name>
+    <value>8192</value>
+  </property>
+  <property>
+    <name>yarn.app.mapreduce.am.command-opts</name>
+    <value>-Xmx6553m</value>
+  </property>
+
+<!-- Use fair scheduler -->
+  <property>
+      <name>yarn.resourcemanager.scheduler.class</name>
+      <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</value>
+  </property>
+  <property>
+      <name>yarn.scheduler.fair.user-as-default-queue</name>
+      <value>false</value>
+  </property>
+  <property>
+      <name>yarn.scheduler.fair.allow-undeclared-pools</name>
+      <value>false</value>
+  </property>
+
+
+<!-- Kerberos 
+  <property>  
+          <name>yarn.resourcemanager.keytab</name>  
+          <value>/opt/hadoop/etc/hadoop/hdadm.keytab</value>  
+  </property>  
+  <property>  
+          <name>yarn.resourcemanager.principal</name>  
+          <value>hdadm/_HOST@NCHC.HC</value>  
+  </property>  
+  <property>  
+         <name>yarn.nodemanager.keytab</name>  
+         <value>/opt/hadoop/etc/hadoop/hdadm.keytab</value>  
+ </property>  
+ <property>  
+         <name>yarn.nodemanager.principal</name>  
+         <value>hdadm/_HOST@NCHC.HC</value>  
+ </property>  
+ <property>  
+         <name>yarn.web-proxy.keytab</name>  
+         <value>/opt/hadoop/etc/hadoop/hdadm.keytab</value>  
+ </property>
+ <property>  
+         <name>yarn.web-proxy.principal</name>  
+         <value>hdadm/_HOST@NCHC.HC</value>  
+ </property> 
+ <property>  
+         <name>yarn.nodemanager.container-executor.class</name>  
+         <value>org.apache.hadoop.yarn.server.nodemanager.LinuxContainerExecutor</value>  
+ </property>  
+ <property>  
+        <name>yarn.nodemanager.linux-container-executor.group</name>  
+         <value>hdadm</value>  
+ </property>
+
+-->
+
+</configuration>

@@ -1,0 +1,78 @@
+#!/bin/bash
+# waue (wei-yu chen) @ 20150518 v2
+# using the pdsh to speedup the query process @ 20150519 v3
+# revise to namenode ha @ 20150519 v3
+
+
+bin=`dirname "$0"`
+bin=`cd "$bin"; pwd`
+cd $bin;
+
+> ./var/status/cluster_status
+
+## method 1
+#for i in $(cat ./hosts | grep -v "#" | awk {'print $2'});do
+#        echo " * getting $i ... "
+#        ssh $i "/opt/check_service" >> ./var/status/cluster_status
+#done
+
+## method 2 (faster )
+cat ./hosts | grep -v "#" | awk '{print $2}' > ./.tmp_hosts
+pdsh -w ^./.tmp_hosts "/opt/check_service" |sort $1 >> ./var/status/cluster_status
+sed -i 's/: /;/g' ./var/status/cluster_status
+
+#hd25;NameNode=n;DataNode=y;ResourceManager=n;NodeManager=y;QuorumPeerMain=n;HMaster=n;HRegionSe        rver=y;HiveMetaStore=n;HiveServer2=n;myimpala-state-store=n;myimpala-catalog=n;myimpala-server=        n;Rhadoop=y;
+
+printf "%4s %4s %4s %4s %4s %4s %4s %4s %4s %4s %4s %4s %4s %4s %4s %4s %4s\n" host ZK JN NN DN FC HS RM NM HM RS HMS HS2 IMS ICL ISD R
+echo "----------------------------------------------------------------------------------"
+#sed -i 's/-/_/g' ./var/status/cluster_status
+
+for line in $(cat ./var/status/cluster_status );do  
+
+    IFS=';' read -a array <<< "$line"
+    host=${array[0]}
+
+    for ((i=2;i<${#array[@]};i++)) ;do
+	cmd=${array[$i]}
+	rel_srv=$(echo "${cmd}" |awk 'BEGIN{FS="="} {print $1}')
+	def_srv=${rel_srv,,}
+        grp=$(grep $host ./service_hosts |grep $def_srv)
+	if [ $? -eq 0 ];then
+	    def_check="y";
+        else 
+	    def_check="n";
+	fi
+	
+	if [[ $cmd == *On ]] ;then 
+	    rel_check="y"
+	else 
+	    rel_check="n"
+	fi
+	if  [ $def_srv == "rhadoop" ];then
+	  echo "" >/dev/null  
+        elif [ $def_check == "y" ] && [ $rel_check == "y" ]; then
+	## ok both define and check is on
+	  cmd="$rel_srv=On"
+        elif [ $def_check == "y" ] && [ $rel_check == "n" ]; then
+	## service may crash
+	  cmd="$rel_srv=XX"
+        elif [ $def_check == "n" ] && [ $rel_check == "y" ]; then
+	## service may mis-enable
+	  cmd="$rel_srv=@@"
+	elif [ $def_check == "n" ] && [ $rel_check == "n" ]; then
+	## ok both define and check is disable
+	  cmd="$rel_srv=."
+        else
+	## ??
+	  cmd="$rel_srv=CC"
+        fi
+	eval $cmd
+    done
+#    for e in "${array[@]}"; do
+#        eval $e;
+#    done
+    printf "%4s %4s %4s %4s %4s %4s %4s %4s %4s %4s %4s %4s %4s %4s %4s %4s %4s\n" $host $QuorumPeerMain $JournalNode $NameNode $DataNode $DFSZKFailoverController $HistoryServer $ResourceManager $NodeManager $HMaster $HRegionServer $HiveMetaStore $HiveServer2 $MYIMPALA_STATE_STORE $MYIMPALA_CATALOG $MYIMPALA_SERVER $Rhadoop
+done
+
+echo "On = service is starting; XX = service is crashed; @@ = unexpect start ; . = stoped"
+echo ""

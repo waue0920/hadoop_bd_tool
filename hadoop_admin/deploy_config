@@ -1,0 +1,39 @@
+#!/bin/bash
+# waue (wei-yu chen) @ 20150316
+
+## v1 , slowly
+./hascp ./sync/hadoop-conf/\* /opt/hadoop/etc/hadoop/
+./hascp ./sync/hbase-conf/\* /opt/hbase/conf/
+./hascp ./sync/zookeeper-conf/\* /opt/zookeeper/conf/
+./hascp ./sync/hive-conf\* /opt/hive/conf/
+./hascp ./sync/impala-init.d/\* /opt/impala/init.d
+./hascp ./sync/impala-conf/hdfs-site.xml /opt/impala/conf/hdfs-site.xml
+
+## v2 , pdcp (can't support \* copy .. skip
+
+#cat ./hosts | grep -v "#" | awk '{print $2}' > ./.tmp_pdcp
+#list="host list =>"
+#for i in $(cat ./.tmp_pdcp);do
+#	list=$list" "$i", ";
+#done
+#
+#echo $list;
+#echo "push hadoop-conf/ " 
+#pdcp -w ^./.tmp_pdcp -r ./sync/hadoop-conf /opt/hadoop/etc/hadoop
+#sleep 1
+#
+#echo "push hbase-conf/ " 
+#pdcp -w ^./.tmp_pdcp -r ./sync/hbase-conf /opt/hbase/conf
+#sleep 1
+#
+#echo "push zookeeper-conf/ " 
+#pdcp -w ^./.tmp_pdcp -r ./sync/zookeeper-conf /opt/zookeeper/conf
+#sleep 1
+#
+#echo "push hive-conf/ " 
+#pdcp -w ^./.tmp_pdcp -r ./sync/hive-conf /opt/hive/conf
+#sleep 1
+#
+#echo "push impala-init.d/ " 
+#pdcp -w ^./.tmp_pdcp -r ./sync/impala-init.d /opt/impala/init.d
+#

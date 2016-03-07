@@ -1,0 +1,122 @@
+#!/bin/bash
+
+
+
+host=$1
+action=$2
+
+
+
+usage(){
+  echo "Usage: $0 <Host> <ACTION>"
+  echo "Host : need defined in service_host \\"
+  echo "ACTION  : < start|stop >"
+  exit 0
+}
+
+service_run() {
+
+
+hos=$1
+srv=$2
+act=$3
+
+
+  case "$srv" in
+    resourcemanager|RM)
+      ssh $hos ". /etc/profile; /opt/hadoop/sbin/yarn-daemon.sh --config /opt/hadoop/etc/hadoop $act resourcemanager"
+      ;;
+    nodemanager|NM)
+      ssh $hos ". /etc/profile; /opt/hadoop/sbin/yarn-daemon.sh --config /opt/hadoop/etc/hadoop $act nodemanager"
+      ;;
+    historyserver|HS)
+      ssh $hos ". /etc/profile; /opt/hadoop/sbin/yarn-daemon.sh --config /opt/hadoop/etc/hadoop $act timelineserver"
+      ;;
+    datanode|DN)
+      ssh $hos ". /etc/profile; /opt/hadoop/sbin/hadoop-daemon.sh --config /opt/hadoop/etc/hadoop $act datanode"
+      ;;
+    namenode|NN)
+      ssh $hos ". /etc/profile; /opt/hadoop/sbin/hadoop-daemon.sh --config /opt/hadoop/etc/hadoop $act namenode"
+      ;;
+    DFSZKFailoverController|FC)
+      ssh $hos ". /etc/profile; /opt/hadoop/sbin/hadoop-daemon.sh --config /opt/hadoop/etc/hadoop $act zkfc"
+      ;;
+    journalnode|JN)
+      ssh $hos ". /etc/profile; /opt/hadoop/sbin/hadoop-daemon.sh --config /opt/hadoop/etc/hadoop $act journalnode"
+      ;;
+    hivemetastore|HMS)
+      ssh $hos ". /etc/profile; /opt/hive/sbin/hive-daemon.sh $act metastore"
+      ;;
+    hiveserver2|HS2)
+      ssh $hos ". /etc/profile; /opt/hive/sbin/hive-daemon.sh $act hiveserver2"
+      ;;
+    myimpala_state_store|IMS)
+      ssh $hos ". /etc/profile; /opt/impala/init.d/myimpala_state_store $act"
+      ;;
+    myimpala_catalog|ICL)
+      ssh $hos ". /etc/profile; /opt/impala/init.d/myimpala_catalog $act"
+      ;;
+    myimpala_server|ISD)
+      ssh $hos ". /etc/profile; /opt/impala/init.d/myimpala_server $act"
+      ;;
+    quorumpeermain|ZK)
+      ssh $hos ". /etc/profile; /opt/zookeeper/bin/zkServer.sh $act"
+      ;;
+    hmaster|HM)
+      ssh $hos ". /etc/profile; /opt/hbase/bin/hbase-daemon.sh --config /opt/hbase/conf $act master"
+      ;;
+    hregionserver|RS)
+      ssh $hos ". /etc/profile; /opt/hbase/bin/hbase-daemon.sh --config /opt/hbase/conf $act regionserver"
+      ;;
+    *)
+      usage
+  esac
+}
+
+
+check_for_root() {
+  if [ $(id -ur) -eq 0 ] || [ $(id -ur) -eq $(id $SVC_USER -ur) ]; then
+    echo "welcome : $(id -un)!"
+  else
+    echo 'Error: root user required'
+    echo
+    exit 1
+  fi
+
+}
+
+check_for_action() {
+  if [ "$action" == "start" ] || [ "$action" == "stop" ] ; then
+    echo ''
+  else
+    echo 'Error: action just support : <start>|<stop> '
+    echo ''
+    usage
+  fi
+
+}
+
+## rm stop
+##yarn-daemon.sh --config $YARN_CONF_DIR  stop resourcemanager
+
+check_for_root
+
+
+
+arr_svr=$(cat ./service_hosts | grep -v "#" | grep -w $1 | awk {'print $1'})
+
+if [ "$action" == "" ] || [ "$arr_svr" == "" ]; then
+  usage
+fi
+
+check_for_action
+
+for service in $arr_svr;do
+        echo "=== $host === "
+	service_run $host $service $action
+
+done
+
+
+
+

@@ -1,0 +1,46 @@
+#!/bin/bash
+# revise to nn ha wychen @ 20150519 
+
+jps -m > /tmp/jps 2>&1 
+
+status="$(hostname);"
+
+# this string should be match "grep" to identify the service, not necessary full name , ex ApplicationHistoryServer  ~= HistoryServer
+arr_srv=(NameNode DataNode JournalNode DFSZKFailoverController HistoryServer ResourceManager NodeManager QuorumPeerMain HMaster HRegionServer HiveMetaStore HiveServer2 )
+## java process
+for srv in "${arr_srv[@]}" ;do 
+
+
+	str=$(grep $srv /tmp/jps)
+	ret=$?
+
+	if [ $ret -eq 0 ];then 
+		status=${status}"$srv=On;"
+	else
+		status=${status}"$srv=\.;"
+	fi
+
+
+done
+## impala 
+for srv in myimpala_state_store myimpala_catalog myimpala_server
+do
+	str=$(/opt/impala/init.d/$srv status |grep "is running")
+        ret=$?
+        if [ $ret -eq 0 ];then
+                status=${status}"${srv^^}=On;"
+        else
+                status=${status}"${srv^^}=\.;"
+        fi
+done
+
+## R (3.2.0)
+
+if [ -d /usr/local/lib/R/site-library/rmr2 ];then
+        status=${status}"Rhadoop=En;"
+else
+        status=${status}"Rhadoop=\.;"
+fi
+
+
+echo $status

@@ -1,0 +1,15 @@
+#!/bin/bash
+# waue (wei-yu chen) @ 20150316
+
+cmd=$1
+if [ "$1" == "" ];then
+        echo './hacmd "command"'
+        exit
+fi
+
+for i in $(cat ./hosts | grep -v "#" | awk {'print $2'});do
+        echo "=== $i === "
+        ssh $i $cmd
+
+done
+

@@ -1,0 +1,59 @@
+<configuration>
+<property>
+  <name>javax.jdo.option.ConnectionURL</name>
+  <value>jdbc:mysql://hd18/metastore</value>
+  <description>the URL of the MySQL database</description>
+</property>
+
+<property>
+  <name>javax.jdo.option.ConnectionDriverName</name>
+  <value>com.mysql.jdbc.Driver</value>
+</property>
+
+<property>
+  <name>javax.jdo.option.ConnectionUserName</name>
+  <value>hive</value>
+</property>
+
+<property>
+    <name>hive.warehouse.subdir.inherit.perms</name>
+    <value>true</value>
+</property>
+
+<property>
+  <name>javax.jdo.option.ConnectionPassword</name>
+  <value>mypassword</value>
+</property>
+
+<property>
+  <name>datanucleus.autoCreateSchema</name>
+  <value>false</value>
+</property>
+
+<property>
+  <name>datanucleus.fixedDatastore</name>
+  <value>true</value>
+</property>
+
+<property>
+  <name>datanucleus.autoStartMechanism</name> 
+  <value>SchemaTable</value>
+</property> 
+
+<property>
+  <name>hive.metastore.uris</name>
+  <value>thrift://hd18:9083</value>
+  <description>IP address (or fully-qualified domain name) and port of the metastore host</description>
+</property>
+
+<property>
+<name>hive.metastore.schema.verification</name>
+<value>true</value>
+</property>
+<!-- will get error while count (*) from table in hive-shell
+<property>
+  <name>hive.aux.jars.path </name>
+  <value>file:///opt/hive/lib/zookeeper-3.4.5-cdh5.3.3.jar,file:///opt/hive/lib/hive-hbase-handler-0.13.1-cdh5.3.3.jar,file:///opt/hive/lib/guava-12.0.1.jar,file:///opt/hive/lib/hbase-server-0.98.6-cdh5.3.3.jar </value>
+</property>
+-->
+</configuration>

@@ -1,0 +1,103 @@
+
+## hdfs namenode
+namenode hd17	NN
+namenode hd18	NN
+
+
+## zkfc
+dfszkfailovercontroller hd17 	FC
+dfszkfailovercontroller hd18	FC
+
+
+## journalnode
+journalnode hd17	JN  
+journalnode hd18	JN
+journalnode hd19	JN
+
+
+## hdfs datanode
+datanode hd17	DN
+datanode hd18	DN
+datanode hd19	DN
+datanode hd20	DN
+datanode hd21	DN
+datanode hd22	DN
+datanode hd23	DN
+datanode hd24	DN
+datanode hd25	DN
+datanode hd26	DN
+datanode hd27	DN
+datanode hd28	DN
+
+## yarn historyserver
+historyserver	hd17	HS 
+
+## yarn resource manager
+resourcemanager hd17	RM
+resourcemanager hd18	RM
+
+## yarn nodemanager
+nodemanager hd20	NM	
+nodemanager hd21	NM
+nodemanager hd22	NM
+nodemanager hd23	NM
+nodemanager hd24	NM
+nodemanager hd25	NM
+nodemanager hd26	NM
+nodemanager hd27	NM
+nodemanager hd28	NM
+
+
+## hive metastore
+hivemetastore hd18	HMS
+
+## hive server2
+hiveserver2 hd18	HS2
+
+## zookeeper
+quorumpeermain hd17  	ZK
+quorumpeermain hd18	ZK
+quorumpeermain hd19	ZK
+
+
+## hbase master ( first is the master, second is the backup-master )
+hmaster hd18	HM
+hmaster hd17	HM
+
+
+## hbase regionserver
+hregionserver hd20	RS
+hregionserver hd21	RS  
+hregionserver hd22	RS
+hregionserver hd23	RS
+hregionserver hd24	RS
+hregionserver hd25	RS
+hregionserver hd26	RS
+hregionserver hd27	RS
+hregionserver hd28	RS
+
+## impala metastore
+myimpala_state_store hd18       IMS
+
+
+## impala catalog
+myimpala_catalog hd18   ICL
+
+## impala impalad
+myimpala_server hd17    ISD
+myimpala_server hd18    ISD
+myimpala_server hd19    ISD
+myimpala_server hd20    ISD
+myimpala_server hd21    ISD
+myimpala_server hd22    ISD
+myimpala_server hd23    ISD
+myimpala_server hd24    ISD
+myimpala_server hd25    ISD
+myimpala_server hd26    ISD
+myimpala_server hd27    ISD
+myimpala_server hd28    ISD
+myimpala_server hd29    ISD
+myimpala_server hd30    ISD
+
+
+

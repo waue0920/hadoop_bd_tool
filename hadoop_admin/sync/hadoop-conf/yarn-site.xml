@@ -1,0 +1,247 @@
+<?xml version="1.0"?>
+<configuration>
+    <property>
+        <name>yarn.nodemanager.local-dirs</name>
+        <value>/data1/cdh5yarn/local,/data2/cdh5yarn/local,/data3/cdh5yarn/local,/data4/cdh5yarn/local</value>
+    </property>
+
+    <property>
+        <name>yarn.nodemanager.log-dirs</name>
+        <value>/data1/cdh5yarn/logs,/data2/cdh5yarn/logs,/data3/cdh5yarn/logs,/data4/cdh5yarn/logs</value>
+    </property>
+
+  <property>
+    <name>yarn.nodemanager.remote-app-log-dir</name>
+    <value>hdfs://HDFSHC/var/log/hadoop-yarn/apps</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.aux-services</name>
+    <value>mapreduce_shuffle</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+    <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.address</name>
+    <value>hd17:8032</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.scheduler.address</name>
+    <value>hd17:8030</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.resource-tracker.address</name>
+    <value>hd17:8031</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.admin.address</name>
+    <value>hd17:8033</value>
+  </property>
+
+  <!--RM UI use public IP for outside-->
+  <property>
+    <name>yarn.resourcemanager.webapp.address</name>
+    <value>hd17:8088</value>
+  </property>
+  
+  <!--proxy use private IP , for query App Master-->
+  <property>
+    <name>yarn.web-proxy.address</name>
+    <value>hd17:8089</value>
+  </property>
+
+  <property>
+    <name>yarn.nodemanager.delete.debug-delay-sec</name>
+    <value>600</value>
+  </property>
+
+<!-- Memory usage configure -->
+  <property>
+    <name>yarn.nodemanager.resource.memory-mb</name>
+    <value>32768</value>
+  </property>
+  <property>
+    <name>yarn.scheduler.minimum-allocation-mb</name>
+    <value>4096</value>
+  </property>
+  <property>
+    <name>yarn.scheduler.maximum-allocation-mb</name>
+    <value>32768</value>
+  </property>
+  <property>
+    <name>yarn.app.mapreduce.am.resource.mb</name>
+    <value>8192</value>
+  </property>
+  <property>
+    <name>yarn.app.mapreduce.am.command-opts</name>
+    <value>-Xmx6553m</value>
+  </property>
+
+<!-- Use fair scheduler -->
+  <property>
+      <name>yarn.resourcemanager.scheduler.class</name>
+      <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</value>
+  </property>
+  <property>
+      <name>yarn.scheduler.fair.user-as-default-queue</name>
+      <value>false</value>
+  </property>
+  <property>
+      <name>yarn.scheduler.fair.allow-undeclared-pools</name>
+      <value>false</value>
+  </property>
+
+
+<!-- Kerberos 
+  <property>  
+          <name>yarn.resourcemanager.keytab</name>  
+          <value>/opt/hadoop/etc/hadoop/hdadm.keytab</value>  
+  </property>  
+  <property>  
+          <name>yarn.resourcemanager.principal</name>  
+          <value>hdadm/_HOST@NCHC.HC</value>  
+  </property>  
+  <property>  
+         <name>yarn.nodemanager.keytab</name>  
+         <value>/opt/hadoop/etc/hadoop/hdadm.keytab</value>  
+ </property>  
+ <property>  
+         <name>yarn.nodemanager.principal</name>  
+         <value>hdadm/_HOST@NCHC.HC</value>  
+ </property>  
+ <property>  
+         <name>yarn.web-proxy.keytab</name>  
+         <value>/opt/hadoop/etc/hadoop/hdadm.keytab</value>  
+ </property>
+ <property>  
+         <name>yarn.web-proxy.principal</name>  
+         <value>hdadm/_HOST@NCHC.HC</value>  
+ </property> 
+ <property>  
+         <name>yarn.nodemanager.container-executor.class</name>  
+         <value>org.apache.hadoop.yarn.server.nodemanager.LinuxContainerExecutor</value>  
+ </property>  
+ <property>  
+        <name>yarn.nodemanager.linux-container-executor.group</name>  
+         <value>hdadm</value>  
+ </property>
+
+-->
+
+
+  <property>
+    <name>yarn.resourcemanager.connect.retry-interval.ms</name>
+    <value>2000</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.ha.enabled</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.ha.automatic-failover.enabled</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.ha.automatic-failover.embedded</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.cluster-id</name>
+    <value>hcbd-rm</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.ha.rm-ids</name>
+    <value>rm1,rm2</value>
+  </property>
+<!-- let system auto detect 
+
+  <property>
+    <name>yarn.resourcemanager.ha.id</name>
+    <value>rm1</value>
+  </property>
+-->
+  <property>
+    <name>yarn.resourcemanager.scheduler.class</name>
+    <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.recovery.enabled</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.store.class</name>
+    <value>org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.zk-address</name>
+    <value>hd17:2181,hd18:2181,hd19:2181</value>
+  </property> 
+ <property>
+    <name>yarn.resourcemanager.zk.state-store.address</name>
+    <value>hd17:2181,hd18:2181,hd19:2181</value>
+  </property>
+  <property>
+    <name>yarn.app.mapreduce.am.scheduler.connection.wait.interval-ms</name>
+    <value>5000</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.work-preserving-recovery.enabled</name>
+    <value>true</value>
+  </property>
+
+  <!-- RM1 configs -->
+  <property>
+    <name>yarn.resourcemanager.address.rm1</name>
+    <value>hd17:23140</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.scheduler.address.rm1</name>
+    <value>hd17:23130</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.webapp.https.address.rm1</name>
+    <value>hd17:23189</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.webapp.address.rm1</name>
+    <value>hd17:23188</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.resource-tracker.address.rm1</name>
+    <value>hd17:23125</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.admin.address.rm1</name>
+    <value>hd17:23141</value>
+  </property>
+
+  <!-- RM2 configs -->
+  <property>
+    <name>yarn.resourcemanager.address.rm2</name>
+    <value>hd18:23140</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.scheduler.address.rm2</name>
+    <value>hd18:23130</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.webapp.https.address.rm2</name>
+    <value>hd18:23189</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.webapp.address.rm2</name>
+    <value>hd18:23188</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.resource-tracker.address.rm2</name>
+    <value>hd18:23125</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.admin.address.rm2</name>
+    <value>hd18:23141</value>
+  </property>
+
+
+
+</configuration>

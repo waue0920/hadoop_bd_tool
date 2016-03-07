@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<allocations>
+  <queue name="default">
+    <minResources>98304 mb, 36 vcores</minResources>
+    <maxResources>281800 mb, 100 vcores</maxResources>
+    
+    <weight>1.0</weight>
+    <!--fail mode only consider memory-->
+    <schedulingMode>fair</schedulingMode>
+  </queue>
+  <queue name="MR">
+    <minResources>196608 mb, 72 vcores</minResources>
+    <maxResources>1127200 mb, 412 vcores</maxResources>
+    <weight>1.0</weight>
+    <schedulingMode>fair</schedulingMode>
+  </queue>
+  <queue name="HIVE">
+    <minResources>196608 mb, 72 vcores</minResources>
+    <maxResources>1127200 mb, 412 vcores</maxResources>
+    <weight>2.0</weight>
+    <schedulingMode>fair</schedulingMode>
+  </queue>
+   
+  <userMaxAppsDefault>10</userMaxAppsDefault>
+   
+</allocations>
