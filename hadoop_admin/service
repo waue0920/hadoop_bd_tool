@@ -35,12 +35,12 @@ act=$3
       ssh $hos ". /etc/profile; /opt/hadoop/sbin/yarn-daemon.sh --config /opt/hadoop/etc/hadoop $act nodemanager"
       ;;
     historyserver|HS)
-      ssh $hos ". /etc/profile; /opt/hadoop/sbin/yarn-daemon.sh --config /opt/hadoop/etc/hadoop $act timelineserver"
+      ssh $hos ". /etc/profile; /opt/hadoop/sbin/mr-jobhistory-daemon.sh --config /opt/hadoop/etc/hadoop $act historyserver"
       ;;
     datanode|DN)
       ssh $hos ". /etc/profile; /opt/hadoop/sbin/hadoop-daemon.sh --config /opt/hadoop/etc/hadoop $act datanode"
       ;;
-    namenode|NN)
+    namenode|NN
       ssh $hos ". /etc/profile; /opt/hadoop/sbin/hadoop-daemon.sh --config /opt/hadoop/etc/hadoop $act namenode"
       ;;
     DFSZKFailoverController|FC)
